@@ -10,7 +10,7 @@ function dfs(grid, start, goal) {
 
     if (row === goal[0] && col === goal[1]) {
       return {
-        path: transformBfsToVector(path),
+        path: convert2DArrayToVector(path),
         visited: setTo2DArray(visited),
       };
     }

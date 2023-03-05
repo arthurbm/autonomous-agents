@@ -10,7 +10,7 @@ function bfs(grid, start, goal) {
 
     if (row === goal[0] && col === goal[1]) {
       return {
-        path: transformBfsToVector(path),
+        path: convert2DArrayToVector(path),
         visited: setTo2DArray(visited),
       };
     }
@@ -25,14 +25,4 @@ function bfs(grid, start, goal) {
     }
   }
   return null; // If goal is not found
-}
-
-function transformBfsToVector(path) {
-  let vectorPath = [];
-  //console.log(path)
-  for (let i = 0; i < path.length; i++) {
-    vectorPath.push(createVector(path[i][0], path[i][1]));
-  }
-  //console.log(vectorPath)
-  return vectorPath;
 }
