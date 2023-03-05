@@ -29,15 +29,3 @@ function ucs(grid, start, goal) {
   return null; // If goal is not found
 }
 
-function setTo2DArray(set) {
-  // Convert the Set to an array and sort it by the first value
-  const sortedArray = Array.from(set);
-
-  // Split each string in the array into its two values
-  const splitArray = sortedArray.map(str => str.split(','));
-
-  // Map each sub-array to an array of numbers
-  const numArray = splitArray.map(arr => arr.map(Number));
-
-  return numArray;
-}

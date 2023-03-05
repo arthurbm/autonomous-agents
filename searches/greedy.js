@@ -28,14 +28,3 @@ function greedy(grid, start, goal) {
 
   return null; // If goal is not found
 }
-
-/*function heuristic(node, goal) {
-  // Use Manhattan distance as the heuristic function
-  return Math.abs(node[0] - goal[0]) + Math.abs(node[1] - goal[1]);
-}*/
-
-function heuristic(node, goal) {
-  let dx = Math.abs(node[0] - goal[0]);
-  let dy = Math.abs(node[1] - goal[1]);
-  return dx + dy;
-}

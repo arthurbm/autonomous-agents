@@ -32,8 +32,8 @@ class World {
     // this.setBFSPath();
     // this.setUCSPath();
     // this.setGreedyPath();
-    this.setDFSPath();
-    // this.setAStarPath();
+    // this.setDFSPath();
+    this.setAStarPath();
   }
 
   updatePathVisitedTargetPosition(path, visited) {
