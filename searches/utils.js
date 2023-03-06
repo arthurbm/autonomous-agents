@@ -57,10 +57,8 @@ function heuristic(node, goal) {
 
 function convert2DArrayToVector(path) {
   let vectorPath = [];
-  //console.log(path)
   for (let i = 0; i < path.length; i++) {
     vectorPath.push(createVector(path[i][0], path[i][1]));
   }
-  //console.log(vectorPath)
   return vectorPath;
 }

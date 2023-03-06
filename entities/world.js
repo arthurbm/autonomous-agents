@@ -110,40 +110,10 @@ class World {
     this.visitedToDraw.forEach((cell) => {
       const i = (cell[0] + 0.5) * GRID_SIZE;
       const j = (cell[1] + 0.5) * GRID_SIZE;
-      console.log(i, j);
+      // console.log(i, j);
       circle(i, j, GRID_SIZE / 2);
     });
 
-    console.log("visited length", this.visited.length);
+    // console.log("visited length", this.visited.length);
   }
-
-  // async drawSearch() {
-  //   let visitedAux;
-  //   let i = 0;
-  //   let j = 0;
-  //   const pathColor = color(255, 255, 255);
-  //   const visitedInitialLength = this.visited.length;
-
-  //   let visitedToDraw = [];
-
-  //   for (let x = 0; x < visitedInitialLength; x++) {
-  //     fill(pathColor);
-  //     visitedAux = this.visited.shift();
-  //     console.log(this.visited.length);
-
-  //     i = visitedAux[0];
-  //     j = visitedAux[1];
-  //     visitedToDraw.push([i, j]);
-
-  //     visitedToDraw.forEach((cell) => {
-  //       const x = cell[0] * GRID_SIZE;
-  //       const y = cell[1] * GRID_SIZE;
-  //       circle(x + GRID_SIZE / 2, y + GRID_SIZE / 2, GRID_SIZE / 3);
-  //     });
-
-  //     // circle((i + 1 / 2) * GRID_SIZE, (j + 1 / 2) * GRID_SIZE, GRID_SIZE / 2);
-  //   }
-  //   console.log("visited length", this.visited.length);
-  //   console.log("opa");
-  // }
 }
