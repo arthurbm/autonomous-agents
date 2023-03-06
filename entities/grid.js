@@ -17,36 +17,48 @@ class Grid {
   drawGrid() {
     for (let i = 0; i < this.coluna; i++) {
       for (let j = 0; j < this.linha; j++) {
-        switch (this.gridMatrix[i][j].title) {
-          case "vazio":
-            fill("#BEBEBE");
-            break;
-
-          case "grass":
-            fill(0, 200, 0);
-            break;
-
-          case "water":
-            fill("#335DE6");
-            break;
-
-          case "parede":
-            fill("#222222");
-            break;
-
-          case "comida":
-            fill("#A92E9F");
-            break;
-          case "agente":
-            fill("red");
-            break;
-        }
+        fill("red");
         rect(
           i * this.cellSize,
           j * this.cellSize,
           this.cellSize,
           this.cellSize
         );
+
+        switch (this.gridMatrix[i][j].title) {
+          case "comida":
+            image(
+              pikachuImg,
+              (i - 0.5) * GRID_SIZE,
+              (j - 0.5) * GRID_SIZE,
+              GRID_SIZE * 2,
+              GRID_SIZE * 2
+            );
+            break;
+          case "agent":
+            image(
+              trainerImg,
+              i * GRID_SIZE,
+              j * GRID_SIZE,
+              GRID_SIZE,
+              GRID_SIZE
+            );
+            break;
+          case "water":
+            image(waterImg, i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+            break;
+          case "grass":
+            image(grassImg, i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+            break;
+          case "parede":
+            image(wallImg, i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+            break;
+          case "vazio":
+            image(floorImg, i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+            break;
+          default:
+            break;
+        }
       }
     }
   }

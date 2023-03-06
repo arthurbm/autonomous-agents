@@ -1,4 +1,4 @@
-let agentSpeed = 0.13;
+let agentSpeed = 0.25;
 let vectorVel = [];
 class Agent {
   constructor(x, y, grid, world) {
@@ -17,7 +17,6 @@ class Agent {
     let currentTarget = this.targetPosition[this.currentTargetIndex];
     
     if (this.currentPosition.dist(currentTarget) > 0.1) {
-      console.log(this.targetPosition)
       this.currentPosition.lerp(currentTarget, 0.05);
 
       let { x, y } = this.currentPosition;
@@ -86,7 +85,7 @@ class Agent {
     fill("red");
     //rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
     // rect(x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
-    circle((x + 1 / 2) * GRID_SIZE, (y + 1 / 2) * GRID_SIZE, GRID_SIZE);
+    image(trainerImg, x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
   }
 
   getAdjacentPositions() {
