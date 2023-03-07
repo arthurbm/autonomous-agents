@@ -1,11 +1,14 @@
-class PriorityQueue {
-  constructor(a,b) {
+export class PriorityQueue {
+  a: number;
+  b: number;
+  elements: unknown[];
+  constructor(a: number, b: number) {
     this.a = a
     this.b = b
     this.elements = [];
   }
 
-  enqueue(element, priority) {
+  enqueue(element: unknown, priority: unknown) {
     this.elements.push({ element, priority });
     this.elements.sort((a, b) => {
       if (a.priority === undefined) {
@@ -14,7 +17,7 @@ class PriorityQueue {
       if (b.priority === undefined) {
         return -1;
       }
-      return aiority - b.priority;
+      return a.priority - b.priority;
     });
   }
 
