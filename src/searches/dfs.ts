@@ -34,5 +34,5 @@ export function dfs(grid: Grid, start: Array<number>, goal: Array<number>) {
 
   }
 
-  return null; // If goal is not found
+  return { path: [[]], visited: setTo2DArray(visited) }// If goal is not found
 }

@@ -1,5 +1,5 @@
 import P5 from "p5";
-import { bfs, convert2DArrayToVector, greedy, ucs } from "../searches";
+import { bfs, convert2DArrayToVector, dfs } from "../searches";
 import { GRID_HEIGHT, GRID_SIZE, GRID_WIDTH } from "../utils/constants";
 import { Agent } from "./agent";
 import { Food } from "./food";
@@ -32,7 +32,7 @@ export class World {
     this.path = [];
     this.p5 = p5;
 
-    this.setPath(bfs);
+    this.setPath(dfs);
   }
 
   run() {
