@@ -1,4 +1,8 @@
-function setTo2DArray(set) {
+import P5 from "p5";
+import { Cell } from "../models/grid";
+import { GRID_HEIGHT, GRID_WIDTH } from "../utils/constants";
+
+export function setTo2DArray(set: Set<string>) {
   // Convert the Set to an array and sort it by the first value
   const sortedArray = Array.from(set);
 
@@ -11,11 +15,11 @@ function setTo2DArray(set) {
   return numArray;
 }
 
-function getKey(row, col) {
+export function getKey(row: number, col: number) {
   return `${row},${col}`;
 }
 
-function getNeighbors(row, col, grid) {
+export function getNeighbors(row: number, col: number, gridMatrix: Array<Array<Cell>>) {
   let neighbors = [];
 
   for (let [r, c] of [
@@ -34,7 +38,7 @@ function getNeighbors(row, col, grid) {
       neighborCol < GRID_HEIGHT &&
       Math.abs(r) + Math.abs(c) === 1
     ) {
-      if (grid[neighborRow][neighborCol].weight !== Infinity) {
+      if (gridMatrix[neighborRow][neighborCol].weight !== Infinity) {
         let neighbor = [neighborRow, neighborCol];
         neighbors.push(neighbor);
       }
@@ -44,21 +48,21 @@ function getNeighbors(row, col, grid) {
   return neighbors;
 }
 
-/*function heuristic(node, goal) {
-  // Use Manhattan distance as the heuristic function
+/*export function heuristic(node, goal) {
+  // Use Manhattan distance as the heuristic export function
   return Math.abs(node[0] - goal[0]) + Math.abs(node[1] - goal[1]);
 }*/
 
-function heuristic(node, goal) {
+export function heuristic(node: Array<number>, goal: Array<number>) {
   let dx = Math.abs(node[0] - goal[0]);
   let dy = Math.abs(node[1] - goal[1]);
   return dx + dy;
 }
 
-function convert2DArrayToVector(path) {
+export function convert2DArrayToVector(path: Array<Array<number>> , p5: P5) {
   let vectorPath = [];
   for (let i = 0; i < path.length; i++) {
-    vectorPath.push(createVector(path[i][0], path[i][1]));
+    vectorPath.push(p5.createVector(path[i][0], path[i][1]));
   }
   return vectorPath;
 }

@@ -1,13 +1,27 @@
+import P5 from "p5";
+import { trainerImg } from "../sketch";
+import { GRID_SIZE } from "../utils/constants";
+import { Grid } from "./grid";
+
 let agentSpeed = 0.25;
-let vectorVel = [];
-class Agent {
-  constructor(x, y, grid, world) {
+let vectorVel: Array<number> = [];
+
+export class Agent {
+  linha: number;
+  coluna: number;
+  currentPosition: P5.Vector;
+  targetPosition: any;
+  currentTargetIndex: number;
+  grid: Grid;
+  p5: P5;
+  constructor(x: number, y: number, grid: Grid, p5: P5) {
     this.linha = x;
     this.coluna = y;
-    this.currentPosition = createVector(x, y);
+    this.currentPosition = p5.createVector(x, y);
     this.targetPosition = [];
     this.currentTargetIndex = 0;
     this.grid = grid;
+    this.p5 = p5;
   }
 
   /*move() {
@@ -34,16 +48,17 @@ class Agent {
   
   */
 
-  move(grid) {
+  move(grid: Grid) {
     if (this.targetPosition === null || this.targetPosition.length === 0) {
       return;
     }
 
     const currentTarget = this.targetPosition[this.currentTargetIndex];
 
-    const direction = p5.Vector.sub(currentTarget, this.currentPosition);
+    const direction = P5.Vector.sub(currentTarget, this.currentPosition);
     direction.normalize();
     vectorVel.push(agentSpeed);
+
     if (this.currentTargetIndex + 1 < this.targetPosition.length) {
       switch (
         grid.gridMatrix[this.targetPosition[this.currentTargetIndex].x][
@@ -68,11 +83,11 @@ class Agent {
     let s = vectorVel.pop();
     //print(s)
     // adjust speed to change the speed of the agent
-    const velocity = p5.Vector.mult(direction, s);
+    const velocity: P5.Vector = P5.Vector.mult(direction, s);
 
     this.currentPosition.add(velocity);
 
-    if (p5.Vector.dist(this.currentPosition, currentTarget) < agentSpeed) {
+    if (P5.Vector.dist(this.currentPosition, currentTarget) < agentSpeed) {
       this.currentTargetIndex++;
 
       if (this.currentTargetIndex >= this.targetPosition.length) {
@@ -82,10 +97,10 @@ class Agent {
     }
 
     const { x, y } = this.currentPosition;
-    fill("red");
+    this.p5.fill("red");
     //rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
     // rect(x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
-    image(trainerImg, x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+    this.p5.image(trainerImg, x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
   }
 
   getAdjacentPositions() {
@@ -104,21 +119,7 @@ class Agent {
     });
   }
 
-  calculateAgentPosition(agentPos, cellSize) {
-    return {
-      x: agentPos.i * cellSize + cellSize / 2,
-      y: agentPos.j * cellSize + cellSize / 2,
-    };
-  }
-
   getPosMatrix() {
     return [this.linha, this.coluna];
-  }
-
-  addVisited(grid) {
-    let i = Math.floor(this.pos.x / grid.cellSize);
-    let j = Math.floor(this.pos.y / grid.cellSize);
-    this.visited.push(createVector(i, j));
-    grid.grid[i][j].checked = true;
   }
 }
