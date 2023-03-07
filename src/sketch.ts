@@ -9,7 +9,6 @@ export let waterImg: P5.Image;
 export let wallImg: P5.Image;
 export let floorImg: P5.Image;
 
-
 const sketch = (p5: P5) => {
   let world: World;
 

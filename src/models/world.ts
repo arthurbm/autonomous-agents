@@ -20,6 +20,7 @@ export class World {
   visited: Array<Array<number>>;
   path: P5.Vector[];
   p5: P5;
+
   constructor(p5: P5) {
     this.grid = new Grid(GRID_WIDTH, GRID_HEIGHT, GRID_SIZE, p5);
     this.grid.addObstaculos(200, 100, 100);
@@ -32,7 +33,7 @@ export class World {
     this.path = [];
     this.p5 = p5;
 
-    this.setPath(dfs);
+    this.setAlgorithm()
   }
 
   run() {
@@ -60,7 +61,11 @@ export class World {
     this.agent = new Agent(agentX, agentY, this.grid, this.p5);
     this.visitedToDraw = [];
 
-    this.setPath(bfs);
+    this.setAlgorithm()
+  }
+
+  setAlgorithm() {
+    this.setPath(dfs);
   }
 
   updatePathVisitedTargetPosition(path: P5.Vector[], visited: Array<Array<number>>) {
@@ -68,13 +73,12 @@ export class World {
     this.visited = visited;
     this.agent.targetPosition = this.path;
   }
-  
+
   setPath(searchFunction: SearchFunction) {
     const { path, visited } = searchFunction(this.grid, this.agent.getPosMatrix(), this.food.getPosMatrix());
     const pathConverted = convert2DArrayToVector(path, this.p5);
     this.updatePathVisitedTargetPosition(pathConverted, visited);
   }
-  
 
   drawPath() {
     const pathColor = this.p5.color(230, 230, 25);
