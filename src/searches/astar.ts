@@ -15,7 +15,14 @@ export function aStar(grid: Grid, start: Array<number>, goal: Array<number>) {
   let visited = new Set([getKey(start[0], start[1])]);
 
   while (!pq.isEmpty()) {
-    let { path, cost } = pq.dequeue();
+    let item = pq.dequeue();
+    let path = item?.path
+    let cost = item?.cost
+    if (path == undefined || cost === undefined){
+      console.log("rolou")
+      break;
+    }
+    
     let [row, col] = path[path.length - 1];
     row = Math.floor(row);
     col = Math.floor(col);
@@ -35,9 +42,8 @@ export function aStar(grid: Grid, start: Array<number>, goal: Array<number>) {
         grid.gridMatrix
       );
       let newCost =
-        cost +
-        1 -
-        heuristic([row, col], goal) +
+        //cost +
+        //heuristic([row, col], goal) +
         neighborWeight +
         heuristic(neighbor, goal);
 
@@ -48,5 +54,5 @@ export function aStar(grid: Grid, start: Array<number>, goal: Array<number>) {
     }
   }
 
-  return null; // If goal is not found
+  return { path: [[]], visited: setTo2DArray(visited) }// If goal is not found
 }
