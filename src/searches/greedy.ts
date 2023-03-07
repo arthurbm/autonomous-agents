@@ -10,7 +10,13 @@ export function greedy(grid: Grid, start: Array<number>, goal: Array<number>) {
   let visited = new Set([getKey(start[0], start[1])]);
 
   while (!pq.isEmpty()) {
-    let { path, cost } = pq.dequeue();
+    let item = pq.dequeue();
+    let path = item?.path
+    if (path == undefined){
+      console.log("rolou")
+      break;
+    }
+    //let cost = item?.cost
     let [row, col] = path[path.length - 1];
     row = Math.floor(row);
     col = Math.floor(col);
@@ -30,5 +36,5 @@ export function greedy(grid: Grid, start: Array<number>, goal: Array<number>) {
     }
   }
 
-  return null; // If goal is not found
+  return { path: [[]], visited: setTo2DArray(visited) }//
 }

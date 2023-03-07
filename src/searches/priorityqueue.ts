@@ -1,31 +1,39 @@
+type PathCost = {
+  path: Array<Array<number>>,
+  cost: number
+};
+
 export class PriorityQueue {
-  a: number;
-  b: number;
-  elements: unknown[];
-  constructor(a: number, b: number) {
-    this.a = a
-    this.b = b
-    this.elements = [];
+  data: Array<PathCost>;
+  compare: (a: PathCost, b: PathCost) => number;
+
+  constructor(compare: (a: PathCost, b: PathCost) => number) {
+    this.data = [];
+    this.compare = compare;
   }
 
-  enqueue(element: unknown, priority: unknown) {
-    this.elements.push({ element, priority });
-    this.elements.sort((a, b) => {
-      if (a.priority === undefined) {
-        return 1;
+  enqueue(item: PathCost) {
+    let added = false;
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.compare(item, this.data[i]) < 0) {
+        this.data.splice(i, 0, item);
+        added = true;
+        break;
       }
-      if (b.priority === undefined) {
-        return -1;
-      }
-      return a.priority - b.priority;
-    });
+    }
+    if (!added) {
+      this.data.push(item);
+    }
   }
 
   dequeue() {
-    return this.elements.shift().element;
+    if(!this.isEmpty()){
+      return this.data.shift();
+    }
+    return;
   }
 
   isEmpty() {
-    return this.elements.length === 0;
+    return this.data.length === 0;
   }
 }
