@@ -25,7 +25,7 @@ export class Grid {
     for (let i = 0; i < this.coluna; i++) {
       let col = [];
       for (let j = 0; j < this.linha; j++)
-        col.push({ title: "vazio", weight: 0, checked: false, parent: null });
+        col.push({ title: "vazio", weight: 1, checked: false, parent: null });
 
       this.gridMatrix.push(col);
     }

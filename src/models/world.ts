@@ -1,5 +1,12 @@
 import P5 from "p5";
-import { bfs, convert2DArrayToVector, dfs } from "../searches";
+import {
+  bfs,
+  convert2DArrayToVector,
+  dfs,
+  aStar,
+  greedy,
+  ucs,
+} from "../searches";
 import { GRID_HEIGHT, GRID_SIZE, GRID_WIDTH } from "../utils/constants";
 import { Agent } from "./agent";
 import { Food } from "./food";
@@ -10,7 +17,7 @@ type SearchFunction = {
     path: Array<Array<number>>;
     visited: Array<Array<number>>;
   };
-}
+};
 
 export class World {
   grid: Grid;
@@ -20,6 +27,8 @@ export class World {
   visited: Array<Array<number>>;
   path: P5.Vector[];
   p5: P5;
+  movements: Array<Array<number>>;
+  visitedToFrontier: Array<Array<number>>;
 
   constructor(p5: P5) {
     this.grid = new Grid(GRID_WIDTH, GRID_HEIGHT, GRID_SIZE, p5);
@@ -31,9 +40,16 @@ export class World {
     this.visited = [];
     this.visitedToDraw = [];
     this.path = [];
+    this.movements = [
+      [-1, 0],
+      [0, -1],
+      [1, 0],
+      [0, 1],
+    ];
+    this.visitedToFrontier = [];
     this.p5 = p5;
 
-    this.setAlgorithm()
+    this.setAlgorithm();
   }
 
   run() {
@@ -43,7 +59,8 @@ export class World {
       this.drawPath();
       this.agent.move(this.grid);
     } else {
-      this.drawSearch();
+      this.visitedToFrontier = this.drawSearch();
+      this.drawFrontier(this.visitedToFrontier);
     }
 
     //print(this.agent.currentPosition.dist(this.food.currentPosition))
@@ -61,23 +78,50 @@ export class World {
     this.agent = new Agent(agentX, agentY, this.grid, this.p5);
     this.visitedToDraw = [];
 
-    this.setAlgorithm()
+    this.setAlgorithm();
   }
 
   setAlgorithm() {
-    this.setPath(dfs);
+    this.setPath(ucs);
   }
 
-  updatePathVisitedTargetPosition(path: P5.Vector[], visited: Array<Array<number>>) {
+  updatePathVisitedTargetPosition(
+    path: P5.Vector[],
+    visited: Array<Array<number>>
+  ) {
     this.path = path;
     this.visited = visited;
     this.agent.targetPosition = this.path;
   }
 
   setPath(searchFunction: SearchFunction) {
-    const { path, visited } = searchFunction(this.grid, this.agent.getPosMatrix(), this.food.getPosMatrix());
+    const { path, visited } = searchFunction(
+      this.grid,
+      this.agent.getPosMatrix(),
+      this.food.getPosMatrix()
+    );
     const pathConverted = convert2DArrayToVector(path, this.p5);
     this.updatePathVisitedTargetPosition(pathConverted, visited);
+  }
+
+  isValidPosition(x: number, y: number) {
+    if (
+      x >= 0 &&
+      x < this.grid.linha &&
+      y >= 0 &&
+      y < this.grid.coluna &&
+      this.grid.gridMatrix[x][y].title !== "parede"
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isSearchedDrawed(alreadyVisited: number[][], x: number, y: number) {
+    return alreadyVisited.find((cell) => {
+      return cell[0] === x && cell[1] === y;
+    });
   }
 
   drawPath() {
@@ -91,22 +135,36 @@ export class World {
   }
 
   drawSearch() {
-    const pathColor = this.p5.color(255, 255, 255);
-
+    const searchedColor = this.p5.color(255, 255, 255);
     let visitedAux = this.visited.shift();
 
     if (visitedAux) {
       this.visitedToDraw.push(visitedAux);
-
-      this.p5.fill(pathColor);
-
       this.visitedToDraw.forEach((cell) => {
+        this.p5.fill(searchedColor);
         const i = (cell[0] + 0.5) * GRID_SIZE;
         const j = (cell[1] + 0.5) * GRID_SIZE;
-        // console.log(i, j);
         this.p5.circle(i, j, GRID_SIZE / 2);
       });
     }
-    // console.log("visited length", this.visited.length);
+    return this.visitedToDraw;
+  }
+  drawFrontier(alreadyVisited: number[][]) {
+    const frontierColor = this.p5.color(222, 135, 200);
+    alreadyVisited.forEach((cell) => {
+      for (let movement of this.movements) {
+        let x = cell[0] + movement[0];
+        let y = cell[1] + movement[1];
+
+        if (this.isValidPosition(x, y) && !this.isSearchedDrawed(alreadyVisited, x, y)) {
+          this.p5.fill(frontierColor);
+          this.p5.circle(
+            (x + 0.5) * GRID_SIZE,
+            (y + 0.5) * GRID_SIZE,
+            GRID_SIZE / 2
+          );
+        }
+      }
+    });
   }
 }
