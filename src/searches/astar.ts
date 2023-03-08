@@ -3,10 +3,6 @@ import { PriorityQueue } from "./priorityqueue";
 import { getKey, getNeighbors, heuristic, setTo2DArray } from "./utils";
 
 function getCellWeight(row: number, col: number, gridMatrix: Array<Array<Cell>>) {
-  if (row < 0 || row >= gridMatrix.length || col < 0 || col >= gridMatrix[0].length) {
-    return Infinity;
-  }
-
   return gridMatrix[row][col].weight;
 }
 
@@ -15,14 +11,14 @@ export function aStar(grid: Grid, start: Array<number>, goal: Array<number>) {
   // let cols = GRID_HEIGHT;
   let pq = new PriorityQueue((a, b) => a.cost - b.cost);
   let startWeight = getCellWeight(start[0], start[1], grid.gridMatrix);
-  pq.enqueue({ path: [start], cost: startWeight + heuristic(start, goal) }); // Use the heuristic function and the cost of the current path to estimate the cost to the goal
+  pq.enqueue({ path: [start], costFromStart:0, cost: startWeight + heuristic(start, goal) }); // Use the heuristic function and the cost of the current path to estimate the cost to the goal
   let visited = new Set([getKey(start[0], start[1])]);
 
   while (!pq.isEmpty()) {
     let item = pq.dequeue();
     let path = item?.path
-    let cost = item?.cost
-    if (path == undefined || cost === undefined){
+    let costFromStart = item?.costFromStart
+    if (path == undefined || costFromStart === undefined){
       console.log("rolou")
       break;
     }
@@ -45,15 +41,16 @@ export function aStar(grid: Grid, start: Array<number>, goal: Array<number>) {
         neighbor[1],
         grid.gridMatrix
       );
-      let newCost =
-        // cost +
+      let newCostFromStart = costFromStart + neighborWeight
+      let newCost = newCostFromStart + heuristic(neighbor,goal)
+        //heuristic([start],[row,col])
         // heuristic([row, col], goal) +
-        neighborWeight +
-        heuristic(neighbor, goal);
+        //neighborWeight +
+        //heuristic(neighbor, goal);
 
       if (!visited.has(neighborKey)) {
         visited.add(neighborKey);
-        pq.enqueue({ path: [...path, neighbor], cost: newCost });
+        pq.enqueue({ path: [...path, neighbor],costFromStart: newCostFromStart ,cost: newCost });
       }
     }
   }
