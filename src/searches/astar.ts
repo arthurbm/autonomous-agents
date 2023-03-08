@@ -3,6 +3,10 @@ import { PriorityQueue } from "./priorityqueue";
 import { getKey, getNeighbors, heuristic, setTo2DArray } from "./utils";
 
 function getCellWeight(row: number, col: number, gridMatrix: Array<Array<Cell>>) {
+  if (row < 0 || row >= gridMatrix.length || col < 0 || col >= gridMatrix[0].length) {
+    return Infinity;
+  }
+
   return gridMatrix[row][col].weight;
 }
 
@@ -42,8 +46,8 @@ export function aStar(grid: Grid, start: Array<number>, goal: Array<number>) {
         grid.gridMatrix
       );
       let newCost =
-        //cost +
-        //heuristic([row, col], goal) +
+        // cost +
+        // heuristic([row, col], goal) +
         neighborWeight +
         heuristic(neighbor, goal);
 

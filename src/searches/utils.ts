@@ -56,7 +56,7 @@ export function getNeighbors(row: number, col: number, gridMatrix: Array<Array<C
 export function heuristic(node: Array<number>, goal: Array<number>) {
   let dx = Math.abs(node[0] - goal[0]);
   let dy = Math.abs(node[1] - goal[1]);
-  return dx + dy;
+  return ((dx**2 + dy**2)**(0.5))*100000; //Maybe improve the heuristic function
 }
 
 export function convert2DArrayToVector(path: Array<Array<number>> , p5: P5) {

@@ -1,5 +1,5 @@
 import P5 from "p5";
-import { bfs, convert2DArrayToVector, dfs } from "../searches";
+import { aStar, bfs, convert2DArrayToVector, dfs } from "../searches";
 import { GRID_HEIGHT, GRID_SIZE, GRID_WIDTH } from "../utils/constants";
 import { Agent } from "./agent";
 import { Food } from "./food";
@@ -65,7 +65,7 @@ export class World {
   }
 
   setAlgorithm() {
-    this.setPath(dfs);
+    this.setPath(aStar);
   }
 
   updatePathVisitedTargetPosition(path: P5.Vector[], visited: Array<Array<number>>) {
