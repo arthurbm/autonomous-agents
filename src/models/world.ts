@@ -1,5 +1,5 @@
 import P5 from "p5";
-import { aStar, bfs, convert2DArrayToVector, dfs } from "../searches";
+import { aStar, convert2DArrayToVector } from "../searches";
 import { GRID_HEIGHT, GRID_SIZE, GRID_WIDTH } from "../utils/constants";
 import { Agent } from "./agent";
 import { Food } from "./food";
