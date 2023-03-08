@@ -61,9 +61,9 @@ export class Agent {
 
     if (this.currentTargetIndex + 1 < this.targetPosition.length) {
       switch (
-        grid.gridMatrix[this.targetPosition[this.currentTargetIndex].x][
-          this.targetPosition[this.currentTargetIndex].y
-        ].title
+      grid.gridMatrix[this.targetPosition[this.currentTargetIndex].x][
+        this.targetPosition[this.currentTargetIndex].y
+      ].title
       ) {
         case "vazio":
           agentSpeed = 0.25;
@@ -83,6 +83,8 @@ export class Agent {
     let s = vectorVel.pop();
     //print(s)
     // adjust speed to change the speed of the agent
+
+    // @ts-ignore
     const velocity: P5.Vector = P5.Vector.mult(direction, s);
 
     this.currentPosition.add(velocity);
