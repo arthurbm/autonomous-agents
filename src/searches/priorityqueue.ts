@@ -1,7 +1,7 @@
 type PathCost = {
   path: Array<Array<number>>,
   cost: number,
-  costFromStart:number
+  costFromStart?:number
 };
 
 export class PriorityQueue {
