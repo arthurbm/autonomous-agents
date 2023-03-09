@@ -2,13 +2,35 @@
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <link rel="icon" type="image/svg+xml" href="/pikachu.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projeto de SI</title>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/sketch.ts"></script>
+    <script type="module" src="/src/scripts/handleButtons.ts"></script>
+    <div id="app" class="buttonContainer">
+      <img
+        src="/public/pokemon-logo.png"
+        alt="Logo Pokemon"
+        height="200"
+        width="556"
+      />
+      <a href="/searches.html">
+        <button id="buttonAstar" class="myButton">A*</button>
+      </a>
+      <a href="/searches.html">
+        <button id="buttonBFS" class="myButton">Busca em Largura</button>
+      </a>
+      <a href="/searches.html">
+        <button id="buttonDFS" class="myButton">Busca em Profundidade</button>
+      </a>
+      <a href="/searches.html">
+        <button id="buttonUCS" class="myButton">Busca de Custo Uniforme</button>
+      </a>
+      <a href="/searches.html">
+        <button id="buttonGreedy" class="myButton">Busca gulosa</button>
+      </a>
+    </div>
   </body>
 </html>

@@ -1,4 +1,5 @@
 import P5 from "p5";
+import { SelectedSearch } from "../scripts/handleButtons";
 import {
   bfs,
   convert2DArrayToVector,
@@ -29,8 +30,9 @@ export class World {
   p5: P5;
   movements: Array<Array<number>>;
   visitedToFrontier: Array<Array<number>>;
+  selectedSearch: SelectedSearch;
 
-  constructor(p5: P5) {
+  constructor(p5: P5, selectedSearch: SelectedSearch) {
     this.grid = new Grid(GRID_WIDTH, GRID_HEIGHT, GRID_SIZE, p5);
     this.grid.addObstaculos(200, 100, 100);
     const { foodX, foodY } = this.grid.addFood();
@@ -48,6 +50,7 @@ export class World {
     ];
     this.visitedToFrontier = [];
     this.p5 = p5;
+    this.selectedSearch = selectedSearch;
 
     this.setAlgorithm();
   }
@@ -80,7 +83,27 @@ export class World {
   }
 
   setAlgorithm() {
-    this.setPath(aStar);
+    console.log(this.selectedSearch)
+    switch (this.selectedSearch) {
+      case "buttonAstar":
+        this.setPath(aStar);
+        break;
+      case "buttonGreedy":
+        this.setPath(greedy);
+        break;
+      case "buttonBFS":
+        this.setPath(bfs);
+        break;
+      case "buttonDFS":
+        this.setPath(dfs);
+        break;
+      case "buttonUCS":
+        this.setPath(ucs);
+        break;
+      default:
+        this.setPath(aStar);
+        break;
+    }
   }
 
   updatePathVisitedTargetPosition(
