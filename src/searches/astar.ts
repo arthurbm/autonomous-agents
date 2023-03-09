@@ -1,6 +1,6 @@
 import { Cell, Grid } from "../models/grid";
 import { PriorityQueue } from "./priorityqueue";
-import { getKey, getNeighbors, heuristic, setTo2DArray } from "./utils";
+import { getKey, getNeighbors, heuristicAStar, setTo2DArray } from "./utils";
 
 function getCellWeight(row: number, col: number, gridMatrix: Array<Array<Cell>>) {
   return gridMatrix[row][col].weight;
@@ -11,7 +11,7 @@ export function aStar(grid: Grid, start: Array<number>, goal: Array<number>) {
   // let cols = GRID_HEIGHT;
   let pq = new PriorityQueue((a, b) => a.cost - b.cost);
   let startWeight = getCellWeight(start[0], start[1], grid.gridMatrix);
-  pq.enqueue({ path: [start], costFromStart:0, cost: startWeight + heuristic(start, goal) }); // Use the heuristic function and the cost of the current path to estimate the cost to the goal
+  pq.enqueue({ path: [start], costFromStart:0, cost: startWeight + heuristicAStar(start, goal) }); // Use the heuristic function and the cost of the current path to estimate the cost to the goal
   let visited = new Set([getKey(start[0], start[1])]);
 
   while (!pq.isEmpty()) {
@@ -42,7 +42,7 @@ export function aStar(grid: Grid, start: Array<number>, goal: Array<number>) {
         grid.gridMatrix
       );
       let newCostFromStart = costFromStart + neighborWeight
-      let newCost = newCostFromStart + heuristic(neighbor,goal)
+      let newCost = newCostFromStart + heuristicAStar(neighbor,goal)
         //heuristic([start],[row,col])
         // heuristic([row, col], goal) +
         //neighborWeight +

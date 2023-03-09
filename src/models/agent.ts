@@ -99,7 +99,7 @@ export class Agent {
     }
 
     const { x, y } = this.currentPosition;
-    this.p5.fill("red");
+    this.p5.fill("#E3350D");
     //rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
     // rect(x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
     this.p5.image(trainerImg, x * GRID_SIZE, y * GRID_SIZE, GRID_SIZE, GRID_SIZE);

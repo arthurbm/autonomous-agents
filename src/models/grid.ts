@@ -35,7 +35,7 @@ export class Grid {
     const p5 = this.p5;
     for (let i = 0; i < this.coluna; i++) {
       for (let j = 0; j < this.linha; j++) {
-        p5.fill("red");
+        p5.fill("#E3350D");
         p5.rect(
           i * this.cellSize,
           j * this.cellSize,

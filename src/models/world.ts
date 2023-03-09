@@ -54,7 +54,6 @@ export class World {
 
   run() {
     this.grid.drawGrid();
-
     if (this.visited.length === 0) {
       this.drawPath();
       this.agent.move(this.grid);
@@ -77,7 +76,6 @@ export class World {
     this.food = new Food(foodX, foodY, this.p5);
     this.agent = new Agent(agentX, agentY, this.grid, this.p5);
     this.visitedToDraw = [];
-
     this.setAlgorithm();
   }
 
@@ -125,7 +123,7 @@ export class World {
   }
 
   drawPath() {
-    const pathColor = this.p5.color(230, 230, 25);
+    const pathColor = this.p5.color("#E6BC2F");
     this.p5.fill(pathColor);
     for (let i = 0; i < this.path.length - 1; i++) {
       const x = this.path[i].x * GRID_SIZE;
@@ -135,7 +133,7 @@ export class World {
   }
 
   drawSearch() {
-    const searchedColor = this.p5.color(255, 255, 255);
+    const searchedColor = this.p5.color("#F5F5F5");
     let visitedAux = this.visited.shift();
 
     if (visitedAux) {
@@ -149,8 +147,9 @@ export class World {
     }
     return this.visitedToDraw;
   }
+
   drawFrontier(alreadyVisited: number[][]) {
-    const frontierColor = this.p5.color(222, 135, 200);
+    const frontierColor = this.p5.color("#EE6B2F");
     alreadyVisited.forEach((cell) => {
       for (let movement of this.movements) {
         let x = cell[0] + movement[0];
