@@ -83,7 +83,6 @@ export class World {
   }
 
   setAlgorithm() {
-    console.log(this.selectedSearch)
     switch (this.selectedSearch) {
       case "buttonAstar":
         this.setPath(aStar);
@@ -157,7 +156,7 @@ export class World {
 
   drawSearch() {
     const searchedColor = this.p5.color("#F5F5F5");
-    let visitedAux = this.visited.shift();
+    const visitedAux = this.visited.shift();
 
     if (visitedAux) {
       this.visitedToDraw.push(visitedAux);
@@ -174,9 +173,9 @@ export class World {
   drawFrontier(alreadyVisited: number[][]) {
     const frontierColor = this.p5.color("#EE6B2F");
     alreadyVisited.forEach((cell) => {
-      for (let movement of this.movements) {
-        let x = cell[0] + movement[0];
-        let y = cell[1] + movement[1];
+      for (const movement of this.movements) {
+        const x = cell[0] + movement[0];
+        const y = cell[1] + movement[1];
 
         if (this.isValidPosition(x, y) && !this.isSearchedDrawed(alreadyVisited, x, y)) {
           this.p5.fill(frontierColor);

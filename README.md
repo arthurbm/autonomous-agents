@@ -1,54 +1,30 @@
-# Autonomous Agents Project
+# React + TypeScript + Vite
 
-This project simulates autonomous agents navigating through a grid environment, utilizing various search algorithms to find the most efficient path to a goal. It's built with TypeScript, utilizing the p5.js library for rendering the simulation on a web page.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Getting Started
+Currently, two official plugins are available:
 
-To run this project locally, follow these steps:
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-1. Ensure you have [Node.js](https://nodejs.org/en/) installed on your machine.
-2. Clone the repository to your local machine.
-3. Open a terminal in the project directory.
-4. Install the project dependencies by running:
-   ```bash
-   npm install
-   ```
-5. Start the development server with:
-   ```bash
-   npm run dev
-   ```
-6. Open `index.html` in your browser to view the project.
+## Expanding the ESLint configuration
 
-## Project Structure
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- `src/`: Contains the TypeScript source files.
-  - `models/`: Definitions for the grid, agent, and food objects.
-  - `scripts/`: Utility scripts, including button handlers and search name display logic.
-  - `searches/`: Implementation of search algorithms (A*, BFS, DFS, Greedy, UCS).
-  - `utils/`: Utility functions and constants.
-  - `sketch.ts`: Main p5 sketch file that initializes and runs the simulation.
-- `public/`: Static assets like images and icons.
-- `style.css`: Stylesheet for the project's HTML pages.
-- `index.html` and `searches.html`: HTML pages for the project.
-- `vite.config.js`: Configuration file for Vite, the build tool used in this project.
-- `tsconfig.json`: TypeScript compiler options.
+- Configure the top-level `parserOptions` property like this:
 
-## Key Features
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
+```
 
-- Simulation of autonomous agents in a grid environment.
-- Implementation of various search algorithms for pathfinding.
-- Interactive web interface to select and visualize different search strategies.
-
-## Technologies Used
-
-- [TypeScript](https://www.typescriptlang.org/): For writing type-safe JavaScript code.
-- [p5.js](https://p5js.org/): A client-side library for creating graphic and interactive experiences.
-- [Vite](https://vitejs.dev/): A modern frontend build tool.
-
-## Contributing
-
-Contributions to the project are welcome! Please follow the standard fork-and-pull request workflow. Make sure your code adheres to the project's coding standards and includes appropriate tests.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

@@ -1,7 +1,7 @@
 import P5 from 'p5';
-import { World } from './models/world';
-import { SelectedSearch } from './scripts/handleButtons';
-import { GRID_HEIGHT, GRID_SIZE, GRID_WIDTH } from './utils/constants';
+import { World } from '../models/world';
+import { SelectedSearch } from './handleButtons';
+import { GRID_HEIGHT, GRID_SIZE, GRID_WIDTH } from '../utils/constants';
 
 export let trainerImg: P5.Image;
 export let pikachuImg: P5.Image;
@@ -10,7 +10,7 @@ export let waterImg: P5.Image;
 export let wallImg: P5.Image;
 export let floorImg: P5.Image;
 
-const sketch = (p5: P5) => {
+export const sketch = (p5: P5) => {
   const selectedSearch: SelectedSearch = localStorage.getItem("SELECTED_SEARCH") as SelectedSearch || "none";
 
   let world: World;
@@ -35,4 +35,3 @@ const sketch = (p5: P5) => {
   }
 }
 
-new P5(sketch);

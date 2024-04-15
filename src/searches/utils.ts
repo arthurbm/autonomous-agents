@@ -20,16 +20,16 @@ export function getKey(row: number, col: number) {
 }
 
 export function getNeighbors(row: number, col: number, gridMatrix: Array<Array<Cell>>) {
-  let neighbors = [];
+  const neighbors = [];
 
-  for (let [r, c] of [
+  for (const [r, c] of [
     [-1, 0],
     [1, 0],
     [0, -1],
     [0, 1],
   ]) {
-    let neighborRow = row + r;
-    let neighborCol = col + c;
+    const neighborRow = row + r;
+    const neighborCol = col + c;
 
     if (
       neighborRow >= 0 &&
@@ -39,7 +39,7 @@ export function getNeighbors(row: number, col: number, gridMatrix: Array<Array<C
       Math.abs(r) + Math.abs(c) === 1
     ) {
       if (gridMatrix[neighborRow][neighborCol].weight !== Infinity) {
-        let neighbor = [neighborRow, neighborCol];
+        const neighbor = [neighborRow, neighborCol];
         neighbors.push(neighbor);
       }
     }
@@ -54,19 +54,19 @@ export function getNeighbors(row: number, col: number, gridMatrix: Array<Array<C
 }*/
 
 export function heuristic(node: Array<number>, goal: Array<number>) {
-  let dx = Math.abs(node[0] - goal[0]);
-  let dy = Math.abs(node[1] - goal[1]);
+  const dx = Math.abs(node[0] - goal[0]);
+  const dy = Math.abs(node[1] - goal[1]);
   return dx + dy
 }
 
 export function heuristicAStar(node: Array<number>, goal: Array<number>) {
-  let dx = Math.abs(node[0] - goal[0]);
-  let dy = Math.abs(node[1] - goal[1]);
+  const dx = Math.abs(node[0] - goal[0]);
+  const dy = Math.abs(node[1] - goal[1]);
   return ((dx**2 + dy**2)**(0.5))*5; //Maybe improve the heuristic function
 }
 
 export function convert2DArrayToVector(path: Array<Array<number>> , p5: P5) {
-  let vectorPath = [];
+  const vectorPath = [];
   for (let i = 0; i < path.length; i++) {
     vectorPath.push(p5.createVector(path[i][0], path[i][1]));
   }
