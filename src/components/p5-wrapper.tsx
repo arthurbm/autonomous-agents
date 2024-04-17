@@ -1,19 +1,23 @@
 // src/P5Wrapper.js
-import { useEffect, useRef } from 'react';
-import p5 from 'p5';
-import { sketch } from '../scripts/sketch';
+import { useEffect, useRef } from "react";
+import p5 from "p5";
+import { sketch } from "../scripts/sketch";
+import { SelectedSearch } from "../utils/types";
 
-export const P5Wrapper = () => {
-    const sketchRef = useRef<HTMLDivElement | null>(null);
+interface P5WrapperProps {
+  search: SelectedSearch;
+}
 
-    useEffect(() => {
-        const canvas = sketchRef.current ? new p5(sketch, sketchRef.current) : null;
+export function P5Wrapper({ search }: P5WrapperProps) {
+  const sketchRef = useRef<HTMLDivElement | null>(null);
 
-        return () => {
-            canvas?.remove(); // Cleanup the sketch when the component is unmounted
-        };
-    }, []);
+  useEffect(() => {
+    const canvas = sketchRef.current ? new p5(sketch, sketchRef.current) : null;
 
-    return <div ref={sketchRef}></div>;
-};
+    return () => {
+      canvas?.remove(); // Cleanup the sketch when the component is unmounted
+    };
+  }, [search]);
 
+  return <div ref={sketchRef}></div>;
+}
