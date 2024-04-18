@@ -18,8 +18,8 @@ export function SearchPage() {
   const searchName = name ? nameMap[name] : "";
 
   return (
-    <div className="pt-5 pl-5 bg-yellow-400 min-h-screen">
-      <h1 className="text-2xl/relaxed">Busca: {searchName}</h1>
+    <div className="flex flex-col items-center pt-5 pl-5 bg-yellow-400 min-h-screen">
+      <h1 className="text-2xl/relaxed">Search: {searchName}</h1>
 
       {name && <P5Wrapper search={name} />}
     </div>
