@@ -8,10 +8,10 @@ export function SearchPage() {
 
   const nameMap = {
     astar: "A*",
-    bfs: "Busca em Largura",
-    dfs: "Busca em Profundidade",
-    ucs: "Busca de Custo Uniforme",
-    greedy: "Busca gulosa",
+    bfs: "Breadth first search",
+    dfs: "Depth first search",
+    ucs: "Uniform cost search",
+    greedy: "Greedy search",
   };
 
   // get the name from the map
