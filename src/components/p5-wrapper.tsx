@@ -12,7 +12,9 @@ export function P5Wrapper({ search }: P5WrapperProps) {
   const sketchRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const canvas = sketchRef.current ? new p5(sketch, sketchRef.current) : null;
+    console.log('search', search)
+    const s = (p: p5) => sketch(p, search);
+    const canvas = sketchRef.current ? new p5(s, sketchRef.current) : null;
 
     return () => {
       canvas?.remove(); // Cleanup the sketch when the component is unmounted

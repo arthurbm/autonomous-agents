@@ -1,5 +1,4 @@
 import P5 from "p5";
-import { SelectedSearch } from "../scripts/handleButtons";
 import {
   bfs,
   convert2DArrayToVector,
@@ -12,6 +11,7 @@ import { GRID_HEIGHT, GRID_SIZE, GRID_WIDTH } from "../utils/constants";
 import { Agent } from "./agent";
 import { Food } from "./food";
 import { Grid } from "./grid";
+import { SelectedSearch } from "@/utils/types";
 
 type SearchFunction = {
   (grid: Grid, start: Array<number>, goal: Array<number>): {
@@ -84,19 +84,19 @@ export class World {
 
   setAlgorithm() {
     switch (this.selectedSearch) {
-      case "buttonAstar":
+      case "astar":
         this.setPath(aStar);
         break;
-      case "buttonGreedy":
+      case "greedy":
         this.setPath(greedy);
         break;
-      case "buttonBFS":
+      case "bfs":
         this.setPath(bfs);
         break;
-      case "buttonDFS":
+      case "dfs":
         this.setPath(dfs);
         break;
-      case "buttonUCS":
+      case "ucs":
         this.setPath(ucs);
         break;
       default:
