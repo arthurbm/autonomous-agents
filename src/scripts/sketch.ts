@@ -1,7 +1,7 @@
 import P5 from "p5";
 import { World } from "../models/world";
 import { GRID_HEIGHT, GRID_SIZE, GRID_WIDTH } from "../utils/constants";
-import { SelectedSearch } from "../utils/types";
+import { SelectedSearch } from "@/utils/types";
 
 export let trainerImg: P5.Image;
 export let pikachuImg: P5.Image;
