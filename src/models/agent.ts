@@ -1,16 +1,16 @@
 import P5 from "p5";
-import { trainerImg } from "../sketch";
+import { trainerImg } from "../scripts/sketch";
 import { GRID_SIZE } from "../utils/constants";
 import { Grid } from "./grid";
 
 let agentSpeed = 0.25;
-let vectorVel: Array<number> = [];
+const vectorVel: Array<number> = [];
 
 export class Agent {
   linha: number;
   coluna: number;
   currentPosition: P5.Vector;
-  targetPosition: any;
+  targetPosition: Array<P5.Vector>;
   currentTargetIndex: number;
   grid: Grid;
   p5: P5;
@@ -23,30 +23,6 @@ export class Agent {
     this.grid = grid;
     this.p5 = p5;
   }
-
-  /*move() {
-    if (this.targetPosition === null || this.targetPosition.length === 0) {
-      return;
-    }
-    let currentTarget = this.targetPosition[this.currentTargetIndex];
-    
-    if (this.currentPosition.dist(currentTarget) > 0.1) {
-      this.currentPosition.lerp(currentTarget, 0.05);
-
-      let { x, y } = this.currentPosition;
-      let pixelSize = GRID_SIZE;
-      fill("#ff0");
-      rect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
-    } else {
-      this.currentTargetIndex++;
-      if (this.currentTargetIndex >= this.targetPosition.length) {
-        this.targetPosition = [];
-        this.currentTargetIndex = 0;
-      }
-    }
-  }
-  
-  */
 
   move(grid: Grid) {
     if (this.targetPosition === null || this.targetPosition.length === 0) {
@@ -79,12 +55,10 @@ export class Agent {
       }
       vectorVel.push(agentSpeed);
     }
-    //speed = 0.05;
-    let s = vectorVel.pop();
-    //print(s)
-    // adjust speed to change the speed of the agent
+    const s = vectorVel.pop();
 
-    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     const velocity: P5.Vector = P5.Vector.mult(direction, s);
 
     this.currentPosition.add(velocity);

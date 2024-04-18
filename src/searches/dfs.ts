@@ -2,11 +2,11 @@ import { Grid } from "../models/grid";
 import { getKey, getNeighbors, setTo2DArray } from "./utils";
 
 export function dfs(grid: Grid, start: Array<number>, goal: Array<number>) {
-  let stack = [[start]];
-  let visited = new Set([getKey(start[0], start[1])]);
+  const stack = [[start]];
+  const visited = new Set([getKey(start[0], start[1])]);
 
   while (stack.length > 0) {
-    let path = stack.pop();
+    const path = stack.pop();
     if (path === undefined) {
       throw new Error("Path is undefined");
     }

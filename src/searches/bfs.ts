@@ -2,12 +2,12 @@ import { Grid } from "../models/grid";
 import { getKey, getNeighbors, setTo2DArray } from "./utils";
 
 export function bfs(grid: Grid, start: Array<number>, goal: Array<number>) {
-  let queue = [[start]];
-  let visited = new Set([getKey(start[0], start[1])]);
+  const queue = [[start]];
+  const visited = new Set([getKey(start[0], start[1])]);
 
   try {
     while (queue.length > 0) {
-      let path = queue.shift();
+      const path = queue.shift();
       if (path === undefined) {
         throw new Error("Path is undefined");
       }
@@ -22,8 +22,8 @@ export function bfs(grid: Grid, start: Array<number>, goal: Array<number>) {
         };
       }
 
-      for (let neighbor of getNeighbors(row, col, grid.gridMatrix)) {
-        let neighborKey = getKey(neighbor[0], neighbor[1]);
+      for (const neighbor of getNeighbors(row, col, grid.gridMatrix)) {
+        const neighborKey = getKey(neighbor[0], neighbor[1]);
 
         if (!visited.has(neighborKey)) {
           visited.add(neighborKey);

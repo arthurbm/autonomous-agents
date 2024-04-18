@@ -5,15 +5,15 @@ import {  getKey, getNeighbors, setTo2DArray } from "./utils";
 export function ucs(grid: Grid, start: Array<number>, goal: Array<number>) {
   // let rows = GRID_WIDTH;
   // let cols = GRID_HEIGHT;
-  let pq = new PriorityQueue((a, b) => a.cost - b.cost);
+  const pq = new PriorityQueue((a, b) => a.cost - b.cost);
 
   pq.enqueue({ path: [start], cost: 0 });
-  let visited = new Set([getKey(start[0], start[1])]);
+  const visited = new Set([getKey(start[0], start[1])]);
 
   while (!pq.isEmpty()) {
-    let item = pq.dequeue();
-    let path = item?.path
-    let cost = item?.cost
+    const item = pq.dequeue();
+    const path = item?.path
+    const cost = item?.cost
     if (path == undefined || cost === undefined){
       console.log("rolou")
       break;
@@ -26,9 +26,9 @@ export function ucs(grid: Grid, start: Array<number>, goal: Array<number>) {
       return { path, visited: setTo2DArray(visited) };
     }
 
-    for (let neighbor of getNeighbors(row, col, grid.gridMatrix)) {
-      let neighborKey = getKey(neighbor[0], neighbor[1]);
-      let newCost = cost + grid.gridMatrix[neighbor[0]][neighbor[1]].weight;
+    for (const neighbor of getNeighbors(row, col, grid.gridMatrix)) {
+      const neighborKey = getKey(neighbor[0], neighbor[1]);
+      const newCost = cost + grid.gridMatrix[neighbor[0]][neighbor[1]].weight;
 
       if (!visited.has(neighborKey)) {
         visited.add(neighborKey);

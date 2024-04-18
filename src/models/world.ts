@@ -1,5 +1,4 @@
 import P5 from "p5";
-import { SelectedSearch } from "../scripts/handleButtons";
 import {
   bfs,
   convert2DArrayToVector,
@@ -12,6 +11,7 @@ import { GRID_HEIGHT, GRID_SIZE, GRID_WIDTH } from "../utils/constants";
 import { Agent } from "./agent";
 import { Food } from "./food";
 import { Grid } from "./grid";
+import { SelectedSearch } from "@/utils/types";
 
 type SearchFunction = {
   (grid: Grid, start: Array<number>, goal: Array<number>): {
@@ -83,21 +83,20 @@ export class World {
   }
 
   setAlgorithm() {
-    console.log(this.selectedSearch)
     switch (this.selectedSearch) {
-      case "buttonAstar":
+      case "astar":
         this.setPath(aStar);
         break;
-      case "buttonGreedy":
+      case "greedy":
         this.setPath(greedy);
         break;
-      case "buttonBFS":
+      case "bfs":
         this.setPath(bfs);
         break;
-      case "buttonDFS":
+      case "dfs":
         this.setPath(dfs);
         break;
-      case "buttonUCS":
+      case "ucs":
         this.setPath(ucs);
         break;
       default:
@@ -157,7 +156,7 @@ export class World {
 
   drawSearch() {
     const searchedColor = this.p5.color("#F5F5F5");
-    let visitedAux = this.visited.shift();
+    const visitedAux = this.visited.shift();
 
     if (visitedAux) {
       this.visitedToDraw.push(visitedAux);
@@ -174,9 +173,9 @@ export class World {
   drawFrontier(alreadyVisited: number[][]) {
     const frontierColor = this.p5.color("#EE6B2F");
     alreadyVisited.forEach((cell) => {
-      for (let movement of this.movements) {
-        let x = cell[0] + movement[0];
-        let y = cell[1] + movement[1];
+      for (const movement of this.movements) {
+        const x = cell[0] + movement[0];
+        const y = cell[1] + movement[1];
 
         if (this.isValidPosition(x, y) && !this.isSearchedDrawed(alreadyVisited, x, y)) {
           this.p5.fill(frontierColor);

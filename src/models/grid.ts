@@ -1,12 +1,11 @@
 import P5 from "p5";
-import { floorImg, grassImg, pikachuImg, trainerImg, wallImg, waterImg } from "../sketch";
+import { floorImg, grassImg, pikachuImg, trainerImg, wallImg, waterImg } from "../scripts/sketch";
 import { GRID_SIZE } from "../utils/constants";
 
 export interface Cell {
   title: string;
   weight: number;
   checked: boolean;
-  parent: any;
 }
 
 export class Grid {
@@ -23,7 +22,7 @@ export class Grid {
     this.p5 = p5;
 
     for (let i = 0; i < this.coluna; i++) {
-      let col = [];
+      const col = [];
       for (let j = 0; j < this.linha; j++)
         col.push({ title: "vazio", weight: 1, checked: false, parent: null });
 
@@ -84,35 +83,33 @@ export class Grid {
   addObstaculos(grassCount: number, waterCount: number, paredeCount: number) {
     const p5 = this.p5;
     for (let i = 0; i < grassCount; i++) {
-      let x = p5.int(p5.random(this.coluna));
-      let y = p5.int(p5.random(this.linha));
+      const x = p5.int(p5.random(this.coluna));
+      const y = p5.int(p5.random(this.linha));
       this.gridMatrix[x][y] = {
         title: "grass",
         weight: 5,
         checked: false,
-        parent: null,
+        
       };
     }
 
     for (let i = 0; i < waterCount; i++) {
-      let x = p5.int(p5.random(this.coluna));
-      let y = p5.int(p5.random(this.linha));
+      const x = p5.int(p5.random(this.coluna));
+      const y = p5.int(p5.random(this.linha));
       this.gridMatrix[x][y] = {
         title: "water",
         weight: 10,
         checked: false,
-        parent: null,
       };
     }
 
     for (let i = 0; i < paredeCount; i++) {
-      let x = p5.int(p5.random(this.coluna));
-      let y = p5.int(p5.random(this.linha));
+      const x = p5.int(p5.random(this.coluna));
+      const y = p5.int(p5.random(this.linha));
       this.gridMatrix[x][y] = {
         title: "parede",
         weight: Infinity,
         checked: false,
-        parent: null,
       };
     }
   }
@@ -128,7 +125,6 @@ export class Grid {
       title: "comida",
       weight: 0,
       checked: false,
-      parent: null,
     };
     return { foodX: x, foodY: y };
   }
@@ -140,7 +136,7 @@ export class Grid {
       y = Math.floor(Math.random() * this.linha);
     } while (this.gridMatrix[x][y].title !== "vazio");
 
-    this.gridMatrix[x][y] = { title: "agente", weight: Infinity, checked: false, parent: null };
+    this.gridMatrix[x][y] = { title: "agente", weight: Infinity, checked: false };
     return { agentX: x, agentY: y };
   }
 }

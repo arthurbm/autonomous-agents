@@ -9,15 +9,15 @@ function getCellWeight(row: number, col: number, gridMatrix: Array<Array<Cell>>)
 export function aStar(grid: Grid, start: Array<number>, goal: Array<number>) {
   // let rows = GRID_WIDTH;
   // let cols = GRID_HEIGHT;
-  let pq = new PriorityQueue((a, b) => a.cost - b.cost);
-  let startWeight = getCellWeight(start[0], start[1], grid.gridMatrix);
+  const pq = new PriorityQueue((a, b) => a.cost - b.cost);
+  const startWeight = getCellWeight(start[0], start[1], grid.gridMatrix);
   pq.enqueue({ path: [start], costFromStart:0, cost: startWeight + heuristicAStar(start, goal) }); // Use the heuristic function and the cost of the current path to estimate the cost to the goal
-  let visited = new Set([getKey(start[0], start[1])]);
+  const visited = new Set([getKey(start[0], start[1])]);
 
   while (!pq.isEmpty()) {
-    let item = pq.dequeue();
-    let path = item?.path
-    let costFromStart = item?.costFromStart
+    const item = pq.dequeue();
+    const path = item?.path
+    const costFromStart = item?.costFromStart
     if (path == undefined || costFromStart === undefined){
       console.log("rolou")
       break;
@@ -34,15 +34,15 @@ export function aStar(grid: Grid, start: Array<number>, goal: Array<number>) {
       };
     }
 
-    for (let neighbor of getNeighbors(row, col, grid.gridMatrix)) {
-      let neighborKey = getKey(neighbor[0], neighbor[1]);
-      let neighborWeight = getCellWeight(
+    for (const neighbor of getNeighbors(row, col, grid.gridMatrix)) {
+      const neighborKey = getKey(neighbor[0], neighbor[1]);
+      const neighborWeight = getCellWeight(
         neighbor[0],
         neighbor[1],
         grid.gridMatrix
       );
-      let newCostFromStart = costFromStart + neighborWeight
-      let newCost = newCostFromStart + heuristicAStar(neighbor,goal)
+      const newCostFromStart = costFromStart + neighborWeight
+      const newCost = newCostFromStart + heuristicAStar(neighbor,goal)
         //heuristic([start],[row,col])
         // heuristic([row, col], goal) +
         //neighborWeight +
