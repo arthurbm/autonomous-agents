@@ -13,6 +13,7 @@ export let floorImg: P5.Image;
 export const sketch = (p5: P5, selectedSearch: SelectedSearch) => {
   let world: World;
   p5.setup = () => {
+    console.log('selectedSearch', selectedSearch)
     p5.createCanvas(GRID_WIDTH * GRID_SIZE, GRID_HEIGHT * GRID_SIZE);
     world = new World(p5, selectedSearch);
   };

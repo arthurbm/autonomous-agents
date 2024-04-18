@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -17,7 +18,9 @@ export default function Home() {
           </p>
         </div>
         <div className="grid w-full grid-cols-1 md:grid-cols-3 md:gap-4 lg:gap-6">
-          <Button>A*</Button>
+          <Link href="/search/astar">
+            <Button className="w-full">A*</Button>
+          </Link>
           <Button>Busca em Largura</Button>
           <Button>Busca em Profundidade</Button>
           <Button>Busca de Custo Uniforme</Button>

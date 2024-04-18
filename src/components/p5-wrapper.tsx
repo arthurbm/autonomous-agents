@@ -11,7 +11,13 @@ interface P5WrapperProps {
 
 export function P5Wrapper({ search }: P5WrapperProps) {
   const sketchRef = useRef<HTMLDivElement | null>(null);
+  console.log('search', search)
 
+  if (typeof window != 'undefined') {
+    console.log('opa')
+  } else {
+    console.log('deu ruim')
+  }
   useEffect(() => {
     const s = (p: p5) => sketch(p, search);
     const canvas = sketchRef.current ? new p5(s, sketchRef.current) : null;
