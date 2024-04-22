@@ -177,7 +177,10 @@ export class World {
         const x = cell[0] + movement[0];
         const y = cell[1] + movement[1];
 
-        if (this.isValidPosition(x, y) && !this.isSearchedDrawed(alreadyVisited, x, y)) {
+        if (
+          this.isValidPosition(x, y) &&
+          !this.isSearchedDrawed(alreadyVisited, x, y)
+        ) {
           this.p5.fill(frontierColor);
           this.p5.circle(
             (x + 0.5) * GRID_SIZE,
