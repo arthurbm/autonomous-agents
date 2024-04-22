@@ -7,8 +7,6 @@ function getCellWeight(row: number, col: number, gridMatrix: Array<Array<Cell>>)
 }
 
 export function aStar(grid: Grid, start: Array<number>, goal: Array<number>) {
-  // let rows = GRID_WIDTH;
-  // let cols = GRID_HEIGHT;
   const pq = new PriorityQueue((a, b) => a.cost - b.cost);
   const startWeight = getCellWeight(start[0], start[1], grid.gridMatrix);
   pq.enqueue({ path: [start], costFromStart:0, cost: startWeight + heuristicAStar(start, goal) }); // Use the heuristic function and the cost of the current path to estimate the cost to the goal

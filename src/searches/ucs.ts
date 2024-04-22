@@ -3,8 +3,6 @@ import { PriorityQueue } from "./priorityqueue";
 import {  getKey, getNeighbors, setTo2DArray } from "./utils";
 
 export function ucs(grid: Grid, start: Array<number>, goal: Array<number>) {
-  // let rows = GRID_WIDTH;
-  // let cols = GRID_HEIGHT;
   const pq = new PriorityQueue((a, b) => a.cost - b.cost);
 
   pq.enqueue({ path: [start], cost: 0 });
